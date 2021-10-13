@@ -34,12 +34,12 @@ for j=1:nbrms
     QE(j)=sum(data.'.*porteusecos.*scaE);
     QP(j)=sum(data.'.*porteusecos.*scaP);
     QL(j)=sum(data.'.*porteusecos.*scaL);
-%     discELpow=(IE.^2+QE.^2)-(IL.^2+QL.^2);
-%     if discELpow > 0
-%         % générer les prochains codes (scaE scaP scaL) plus en avance
-%     elseif discELpow<0
-%         % générer les prochains codes (scaE scaP scaL) plus en retard
-%     end
+    discELpow=(IE.^2+QE.^2)-(IL.^2+QL.^2);
+    if discELpow > 0
+        % générer les prochains codes (scaE scaP scaL) plus en avance
+    elseif discELpow<0
+        % générer les prochains codes (scaE scaP scaL) plus en retard
+    end
     
 end
 figure 
