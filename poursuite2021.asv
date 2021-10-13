@@ -25,8 +25,8 @@ for j=1:nbrms
     data = 2*data01 -1;
     
     t=(j-1)*1e-3:1/fe:j*1e-3-1/fe;
-    porteusecos=cos(2*pi*(fi+dopp(prn)*t));
-    porteusesin=sin(2*pi*(fi+dopp(prn)*t));
+    porteusecos=cos(2*pi*(fi+dopp(prn))*t);
+    porteusesin=sin(2*pi*(fi+dopp(prn))*t);
     IE(j)=sum(data.'.*porteusesin.*scaE);
     IP(j)=sum(data.'.*porteusesin.*scaP);
     IL(j)=sum(data.'.*porteusesin.*scaL);
@@ -34,7 +34,11 @@ for j=1:nbrms
     QE(j)=sum(data.'.*porteusecos.*scaE);
     QP(j)=sum(data.'.*porteusecos.*scaP);
     QL(j)=sum(data.'.*porteusecos.*scaL);
-    discELpow=(IE.^2+QE.^2)-(IL.^2+QL.^2);
+    deltaphi
+    
+    
+    
+    discELpow=(IE(j)^2+QE(j)^2)-(IL(j)^2+QL(j)^2);
     if discELpow > 0
         % générer les prochains codes (scaE scaP scaL) plus en avance
         scaE=[scaE(2:nbr_ech) scaE(1)];
@@ -42,18 +46,22 @@ for j=1:nbrms
         scaL=[scaL(2:nbr_ech) scaL(1)];
     elseif discELpow<0
         % générer les prochains codes (scaE scaP scaL) plus en retard
-        scaE=[scaE(nbr_ech) scaP(1:nbr_ech-1)];
+        scaE=[scaE(nbr_ech) scaE(1:nbr_ech-1)];
         scaP=[scaP(nbr_ech) scaP(1:nbr_ech-1)];
-        scaL=[scaP(nbr_ech) scaP(1:nbr_ech-1)];
+        scaL=[scaL(nbr_ech) scaL(1:nbr_ech-1)];
     end
     
 end
-figure 
-plot(IP.^2+QP.^2);
+figure
+plot(IP.^2+QP.^2,'.');
 hold all
-plot(IE.^2+QE.^2);
-plot(IL.^2+QL.^2);
+plot(IE.^2+QE.^2,'.k');
+plot(IL.^2+QL.^2,'.g');
 legend('IP²+QP²','IE²+QE²','IL²+QL²');
-
+figure
+plot(IP);
+hold all
+plot(QP);
+legend('IP','QP');
 
 fclose(fid)

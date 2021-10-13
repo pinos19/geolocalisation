@@ -50,7 +50,7 @@ for prn=1:32 % numéro PRN du satellite à étudier
     %     fclose(fid); % fermeture du fichier
 
         ind1 = 1;
-        vectdopp =-5000:200:5000;
+        vectdopp =-5000:20:5000;
 
         for fdoppler=vectdopp
             t=0 : 1/fe : N*1e-3-1/fe;
